@@ -1,7 +1,6 @@
 import Table from "react-bootstrap/Table";
 import "bootstrap/dist/css/bootstrap.min.css";
 const DataTable = ({ filesData }) => {
-  console.log("datafiles", filesData);
   return (
     <>
       {Array.isArray(filesData) ? (

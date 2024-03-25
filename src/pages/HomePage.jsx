@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
-import { DataTable } from "../components";
+import { DataTable, NavBar } from "../components";
 
 const HomePage = () => {
   const [filesData, setFilesData] = useState([]);
@@ -20,8 +20,23 @@ const HomePage = () => {
 
     console.log("reloading");
   }, []);
+
+  const [searchParam, setSearchParam] = useState("");
+  const submitForm = (e) => {
+    e.preventDefault();
+    console.log(searchParam);
+  };
   return (
     <div>
+      <NavBar />
+      <form onSubmit={submitForm}>
+        <label>Search for your CSV file </label>
+        <input
+          value={searchParam}
+          onChange={(e) => setSearchParam(e.target.value)}
+        />
+        <button type="submit">Search</button>
+      </form>
       <DataTable filesData={filesData} />
     </div>
   );
