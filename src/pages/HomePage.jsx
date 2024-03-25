@@ -1,52 +1,51 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import axios from "axios";
-import { DataTable, ModalAlert, NavBar } from "../components";
-import { useSearchParams, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import { DataTable, ModalAlert, NavBar } from '../components'
+import { useSearchParams, useLocation } from 'react-router-dom'
 
 const HomePage = () => {
-  const [filesData, setFilesData] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
-  let location = useLocation();
-  const [showAlert, setShowAlert] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [filesData, setFilesData] = useState([])
+  const [searchParams, setSearchParams] = useSearchParams()
+  const location = useLocation()
+  const [showAlert, setShowAlert] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handlerInputChange = (event) => {
-    let fileName = event.target.value;
+    const fileName = event.target.value
     if (fileName) {
-      setSearchParams({ fileName });
+      setSearchParams({ fileName })
     } else {
-      setSearchParams({});
+      setSearchParams({})
     }
-  };
+  }
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/files/data")
+      .get('http://localhost:8000/api/files/data')
       .then((allFiles) => {
-        setFilesData(allFiles.data);
+        setFilesData(allFiles.data)
       })
       .catch((error) => {
-        setShowAlert(true);
-        setErrorMessage(error.message);
-      });
-  }, []);
+        setShowAlert(true)
+        setErrorMessage(error.message)
+      })
+  }, [])
 
   const submitForm = (e) => {
-    e.preventDefault();
-    setShowAlert(false);
-    const url = `http://localhost:8000/api/files/data${location.search}`;
+    e.preventDefault()
+    setShowAlert(false)
+    const url = `http://localhost:8000/api/files/data${location.search}`
     axios
       .get(url)
       .then((singleFile) => {
-        setFilesData(singleFile.data);
+        setFilesData(singleFile.data)
       })
       .catch((error) => {
-        console.log(error);
-        setShowAlert(true);
-        setErrorMessage(error.response.data.message);
-      });
-  };
+        console.log(error)
+        setShowAlert(true)
+        setErrorMessage(error.response.data.message)
+      })
+  }
   return (
     <div>
       <NavBar />
@@ -54,14 +53,14 @@ const HomePage = () => {
       <form onSubmit={submitForm}>
         <label>Search for your CSV file </label>
         <input
-          value={searchParams.get("fileName") || ""}
+          value={searchParams.get('fileName') || ''}
           onChange={handlerInputChange}
         />
-        <button type="submit">Search</button>
+        <button type='submit'>Search</button>
       </form>
       <DataTable filesData={filesData} />
     </div>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage
