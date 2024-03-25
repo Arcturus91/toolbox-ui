@@ -12,7 +12,7 @@ This is a solution for the front-end part of the test
 
     ```sh
     # Cloning this repo into your sytem
-    git clone https://github.com/Arcturus91/toolboxTest-frontEnd.git
+    git clone https://github.com/Arcturus91/toolbox-ui.git
     ```
 
 2.  **Runing the project**
